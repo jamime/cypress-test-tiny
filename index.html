@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Testcase</title>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <button id="reset">reset</button>
+    <button id="target">click me then press enter</button>
+    <div id="log"></div>
+
+    <script>
+      const target = document.getElementById("target");
+      const reset = document.getElementById("reset");
+
+      let log = [];
+
+      reset.addEventListener("click", () => {
+        log = [];
+        updateLog();
+      });
+
+      const updateLog = (msg) => {
+        if (msg) {
+          log.push(msg);
+        }
+
+        const ol = document.createElement("ol");
+
+        log.forEach((text) => {
+          const node = document.createTextNode(text);
+          const li = document.createElement("li");
+          li.appendChild(node);
+          ol.appendChild(li);
+        });
+
+        document.getElementById("log").replaceChildren(ol);
+      };
+
+      target.addEventListener("keydown", () => {
+        updateLog("keydown");
+      });
+      target.addEventListener("keypress", () => {
+        updateLog("keypress");
+      });
+      target.addEventListener("click", () => {
+        updateLog("click");
+      });
+      target.addEventListener("keyup", () => {
+        updateLog("keyup");
+      });
+    </script>
+  </body>
+</html>
